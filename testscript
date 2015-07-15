@@ -1,0 +1,24 @@
+#!/bin/bash
+
+TESTFOLDER="angmori/Documents/testdir"
+
+echo -e "\nRunning test script..."
+echo Compiling program...
+#rm mfind
+make test
+rm *.o
+echo
+
+echo Running tests...
+echo -e "\nTesting multiple starting paths..."
+./mfind $TESTFOLDER $TESTFOLDER/1 $TESTFOLDER/correct_folder testfile
+
+echo -e "\nTesting to give a faulty option..."
+./mfind -a $TESTFOLDER testfile
+
+echo -e "\nTesting to give a faulty argument to -p..."
+./mfind -p d $TESTFOLDER testfile
+
+echo -e "\nTesting multiple threads with Valgrind..."
+valgrind --leak-check=yes --show-reachable=yes ./mfind -p 4 $TESTFOLDER testfile
+echo 

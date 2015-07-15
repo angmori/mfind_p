@@ -1,0 +1,1 @@
+a2ps -P ma416ps_d *.c *.h Makefile
